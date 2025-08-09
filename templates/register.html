@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  body {
+    background-color: #121212;
+  }
+
+  .register-wrapper {
+    min-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .register-card {
+    background-color: #1f1f1f;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .register-card h2 {
+    font-weight: 600;
+    font-size: 28px;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #f5f5f5;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #c0c0c0;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 1.5rem;
+    background-color: #2c2c2c;
+    border: 1.5px solid #3a3a3a;
+    border-radius: 8px;
+    color: #eee;
+    font-size: 15px;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px #4a90e2;
+    background-color: #2c2c2c;
+    color: #fff;
+  }
+
+  .btn-success {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(90deg, #28a745 0%, #1e7e34 100%);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    color: white;
+  }
+
+  .btn-success:hover,
+  .btn-success:focus {
+    background: linear-gradient(90deg, #218838 0%, #1c6c2a 100%);
+    outline: none;
+  }
+
+  .login-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 14px;
+    color: #999;
+  }
+
+  .login-link a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+
+  .text-danger {
+    font-size: 13px;
+    margin-top: -12px;
+    margin-bottom: 12px;
+    color: #ff6b6b;
+  }
+</style>
+
+<div class="register-wrapper">
+  <div class="register-card">
+    <h2>Create an Account</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <label for="{{ form.username.id_for_label }}">Username</label>
+      {{ form.username }}
+      {% if form.username.errors %}
+        <div class="text-danger">{{ form.username.errors|striptags }}</div>
+      {% endif %}
+
+      <label for="{{ form.email.id_for_label }}">Email</label>
+      {{ form.email }}
+      {% if form.email.errors %}
+        <div class="text-danger">{{ form.email.errors|striptags }}</div>
+      {% endif %}
+
+      <label for="{{ form.password1.id_for_label }}">Password</label>
+      {{ form.password1 }}
+      {% if form.password1.errors %}
+        <div class="text-danger">{{ form.password1.errors|striptags }}</div>
+      {% endif %}
+
+      <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+      {{ form.password2 }}
+      {% if form.password2.errors %}
+        <div class="text-danger">{{ form.password2.errors|striptags }}</div>
+      {% endif %}
+
+      <button type="submit" class="btn btn-success">Register</button>
+    </form>
+    <div class="login-link">
+      Already have an account? <a href="{% url 'login' %}">Login</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
